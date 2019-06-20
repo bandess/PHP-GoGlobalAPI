@@ -2,7 +2,7 @@
 
 namespace GoGlobal;
 
-use SplEnum;
+use GoGlobal\Enum\SplEnum;
 use ReflectionClass;
 
 abstract class EnumAbstract extends SplEnum

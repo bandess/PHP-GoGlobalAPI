@@ -12,6 +12,8 @@ abstract class ResponseAbstract extends ServiceBase implements ResponseInterface
 	protected $_xml;
 	/** @var array */
 	protected $_data = [];
+	/** @var array */
+	protected $_allData = [];
 
 	protected function process() {
 	}
@@ -19,13 +21,20 @@ abstract class ResponseAbstract extends ServiceBase implements ResponseInterface
 	public function setRequest(RequestInterface $request) {
 		$this->_request = $request;
 		$result = $request->getResult();
-		$this->_xml = new SimpleXMLElement($result);
-		if($this->_xml->Main->Error) {
-			throw new Exception($this->_xml->Main->Error.'<br/>'.PHP_EOL.$this->_xml->Main->DebugError);
-		}
-		$this->_xml = $this->_xml->Main;
-		$this->process();
-		return $this;
+        $this->_allData = json_decode($result,true);
+
+        //		$this->_xml = new SimpleXMLElement($result);
+//		if($this->_xml->Main->Error) {
+//			throw new Exception($this->_xml->Main->Error.'<br/>'.PHP_EOL.$this->_xml->Main->DebugError);
+//		}
+//		$this->_xml = $this->_xml->Main;
+//		$this->process();
+//        header('Content-type: application/json');
+//        echo '<pre>';
+//        var_dump($arrayResult);
+//        echo '</pre>';
+//        exit;
+		return $result;
 	}
 
 	public function getRequest() {
@@ -33,7 +42,7 @@ abstract class ResponseAbstract extends ServiceBase implements ResponseInterface
 	}
 
 	public function getData() {
-		return $this->_data;
+		return $this->_allData;
 	}
 
 	public function toString()

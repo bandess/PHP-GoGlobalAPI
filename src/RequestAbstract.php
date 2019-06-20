@@ -66,24 +66,26 @@ abstract class RequestAbstract extends ServiceBase implements RequestInterface
 	/**
 	 * @return string|null
 	 */
-	public function toXml() {
-		$xml =
+	public function toXml($responseFormat = "XML") {
+		$main = $responseFormat == "XML" ? '<Main>' : '<Main ResponseFormat="JSON">';
+
+	    $xml =
 			'<Root>'.
 			'<Header>'.
 			$this->getHeader().
 			'</Header>'.
-			'<Main>'.
+			$main.
 			$this->getBody().
 			'</Main>'.
 			'</Root>';
-		return $xml;
+	    return $xml;
 	}
 
 	/**
 	 * @return string|null
 	 */
 	public function toString() {
-		return $this->toXml();
+		return $this->toXml("JSON");
 	}
 
 	/**
