@@ -1,5 +1,5 @@
 {
-  "name": "lajosbencz/php-goglobalapi",
+  "name": "bandess/php-goglobalapi",
   "description": "PHP implementation of GoGlobal API",
   "minimum-stability": "stable",
   "license": "MIT",

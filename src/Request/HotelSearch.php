@@ -35,6 +35,7 @@ class HotelSearch extends RequestAbstract implements RequestInterface
 	protected $_apartments = 'false';
 
 
+
 	public function setSort($sort) {
 		$this->_sort = $sort;
 		return $this;
@@ -178,7 +179,7 @@ class HotelSearch extends RequestAbstract implements RequestInterface
 		$xml = "";
 		$xml.= Helper::wrapTag("MaximumWaitTime",$this->getService()->getTimeout());
 		$xml.= Helper::wrapTag("MaxResponses",$this->getService()->getMaxResult());
-		if($this->getCity()>0) $xml.= Helper::wrapTag("CityCode",$this->getCity());
+	   if($this->getCity()>0) $xml.= Helper::wrapTag("CityCode",$this->getCity());
 		if($this->getHotelCode()>0) $xml.= Helper::wrapTag('Hotels', Helper::wrapTag('HotelId',$this->getHotelCode()));
 		$xml.= Helper::wrapTag("ArrivalDate",$this->getDateFrom());
 		$xml.= Helper::wrapTag("Nights",intval($this->getNights()));

@@ -65,4 +65,5 @@ abstract class ServiceBase {
 		return $this->getService()->getPassword();
 	}
 
+
 }

@@ -34,6 +34,7 @@ class Service implements LoggerAwareInterface
     protected $_timeout = 60;
     protected $_logger;
     protected $_wsdl;
+    protected $_maxOffer = 10;
 
 
     public function __construct($config = []) {
@@ -42,7 +43,7 @@ class Service implements LoggerAwareInterface
                 throw new InvalidArgumentException("Missing config value: [".$ck."]");
             }
         }
-        foreach(['agency', 'user', 'password', 'compress', 'url', 'maxResult', 'timeout', 'logger'] as $ck) {
+        foreach(['agency', 'user', 'password', 'compress', 'url', 'maxResult', 'timeout', 'logger','maxOffer'] as $ck) {
             if(array_key_exists($ck, $config)) {
                 $this->{'_'.$ck} = $config[$ck];
             }
@@ -116,6 +117,18 @@ class Service implements LoggerAwareInterface
         return $this->_timeout;
     }
 
+    /**
+     * @param int $offerNum
+     * @return maxOffer
+     */
+    public function setMaxOffer($offerNum){
+        $this->_maxOffer=$offerNum;
+    }
+
+    public function getMaxOffer(){
+        return $this->_maxOffer;
+    }
+
     public function hotelSearch() {
         return (new HotelSearch($this));//->getResponse()->getData();
     }
@@ -146,5 +159,6 @@ class Service implements LoggerAwareInterface
     public function bookingCancel($bookingCode) {
         return (new BookingCancel($this))->setBookingCode($bookingCode);
     }
+
 
 }
