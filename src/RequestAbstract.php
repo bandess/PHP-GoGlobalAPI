@@ -68,8 +68,10 @@ abstract class RequestAbstract extends ServiceBase implements RequestInterface
 	 * @return string|null
 	 */
 	public function toXml($responseFormat = "XML") {
-		$main = $responseFormat == "XML" ? '<Main Version="2.1" MaxOffers="'.$this->getService()->getMaxOffer().'">' : '<Main Version="2.1" MaxOffers="'.$this->getService()->getMaxOffer().'" ResponseFormat="JSON">';
-
+	    $main = "<Main Version=\"2.1\"";
+		$main .= $responseFormat == "XML" ? "" : " ResponseFormat=\"JSON\"";
+        $main .= $this->getService()->getMaxOffer() ? " MaxOffers='".$this->getService()->getMaxOffer()."'" : "";
+        $main .=">";
 	    $xml =
 			'<Root>'.
 			'<Header>'.

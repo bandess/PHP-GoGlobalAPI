@@ -9,6 +9,8 @@ use GoGlobal\RequestInterface;
 class HotelInfo extends RequestAbstract implements RequestInterface
 {
 	protected $_hotelSearchCode;
+    protected $_hotelId;
+    protected $_language = "hu";
 
 	static function getOperation() {
 		return 'HOTEL_INFO_REQUEST';
@@ -27,8 +29,31 @@ class HotelInfo extends RequestAbstract implements RequestInterface
 		return $this->_hotelSearchCode;
 	}
 
+
+	public function setHotelId($hotelId){
+	    $this->_hotelId=$hotelId;
+    }
+
+    public function getHotelId(){
+        return $this->_hotelId;
+    }
+
+    public function setLanguage($language){
+        $this->_language=$language;
+    }
+
+    public function getLanguage(){
+        return $this->_language;
+    }
+
 	public function getBody() {
-		return Helper::wrapTag('HotelSearchCode', $this->getHotelSearchCode());
+        if($this->getHotelId()){
+            $body = Helper::wrapTag('InfoHotelId', $this->getHotelId());
+            $body .= Helper::wrapTag('InfoLanguage', $this->getLanguage());
+            return $body;
+        }
+        else
+    		return Helper::wrapTag('HotelSearchCode', $this->getHotelSearchCode());
 	}
 
 	/**

@@ -34,7 +34,7 @@ class Service implements LoggerAwareInterface
     protected $_timeout = 60;
     protected $_logger;
     protected $_wsdl;
-    protected $_maxOffer = 10;
+    protected $_maxOffer;
 
 
     public function __construct($config = []) {
