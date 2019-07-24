@@ -36,11 +36,11 @@ class Room {
 		$this->_countChildren = 0;
 	}
 
-	public function addAdult($first_name=null, $last_name=null) {
+	public function addAdult($title=null, $first_name=null, $last_name=null) {
         if($first_name===null || $last_name===null) {
             $this->_validForBooking = false;
         }
-		$this->_adults[] = ['first_name'=>$first_name,'last_name'=>$last_name];
+		$this->_adults[] = ['title'=>$title, 'first_name'=>$first_name,'last_name'=>$last_name];
 		$this->_countAdults++;
 		return $this;
 	}
@@ -90,6 +90,24 @@ class Room {
 		return $this->_adults[$i];
 	}
 
+	public function getFirstName($i){
+        $a = $this->getAdult($i);
+        if(!$a) return false;
+        return $a['first_name'];
+    }
+
+    public function getLastname($i){
+        $a = $this->getAdult($i);
+        if(!$a) return false;
+        return $a['last_name'];
+    }
+
+    public function getTitle($i){
+        $a = $this->getAdult($i);
+        if(!$a) return false;
+        return $a['title'];
+    }
+
 	public function getAdultName($i) {
 		$a = $this->getAdult($i);
 		if(!$a) return false;
@@ -115,6 +133,18 @@ class Room {
 		if(!$a) return false;
 		return $a['first_name'] . ' ' .$a['last_name'];
 	}
+
+	public function getChildFirstName($i){
+	    $a = $this->getChild($i);
+		if(!$a) return false;
+        return $a['first_name'];
+    }
+
+    public function getChildLastName($i){
+        $a = $this->getChild($i);
+        if(!$a) return false;
+        return $a['last_name'];
+    }
 
 	public function getChildAge($i) {
 		$a = $this->getChild($i);
@@ -155,11 +185,17 @@ class Room {
 		$xml.= '>';
 		$xml.= '<Room RoomID="'.$roomId.'">';
 		for($a=0; $a<$this->countAdults(); $a++) {
-			$xml.= '<PersonName PersonID="'.$pid.'">'.strtoupper(Helper::stripAccent($this->getAdultName($a))).'</PersonName>';
+			$xml.= '<PersonName PersonID="'.$pid.
+                             '" Title="'.strtoupper(Helper::stripAccent($this->getTitle($a))).
+                             '" FirstName="'.strtoupper(Helper::stripAccent($this->getFirstName($a))).
+                             '" LastName="'.strtoupper(Helper::stripAccent($this->getLastname($a))).'" />';
 			$pid++;
 		}
 		for($c=0; $c<$this->countChildren(); $c++) {
-			$xml.= '<ExtraBed PersonID="'.$pid.'" ChildAge="'.$this->getChildAge($c).'">'.strtoupper(Helper::stripAccent($this->getChildName($c))).'</ExtraBed>';
+			$xml.= '<ExtraBed PersonID="'.$pid.
+                           '" FirstName="'.strtoupper(Helper::stripAccent($this->getChildFirstName($c))).
+                           '" LastName="'.strtoupper(Helper::stripAccent($this->getChildLastName($c))).
+                           '" ChildAge="'.$this->getChildAge($c).'"/>';
 			$pid++;
 		}
 		$xml.= '</Room>';

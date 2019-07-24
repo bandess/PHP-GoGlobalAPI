@@ -157,7 +157,7 @@ class BookingInsert extends RequestAbstract implements RequestInterface
 		$xml .= Helper::wrapTag('HotelSearchCode', $this->getHotelSearchCode());
 		$xml .= Helper::wrapTag('ArrivalDate', $this->getDateFrom());
 		$xml .= Helper::wrapTag('Nights', $this->getNights());
-		$xml .= Helper::wrapTag('NoAlternativeHotel', $this->getAlternative()?'false':'true');
+		$xml .= Helper::wrapTag('NoAlternativeHotel', $this->getAlternative());
 		$xml .= Helper::wrapTag('Leader', false, ['LeaderPersonID' => $this->getLeader()]);
 		$rooms = '';
 		$pid = 1;
