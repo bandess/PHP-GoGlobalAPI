@@ -11,7 +11,7 @@ class BookingStatus extends RequestAbstract implements RequestInterface
 	protected $_bookingCodes = [];
 
 	static function getOperation() {
-		return 'HOTEL_INFO_REQUEST';
+		return 'BOOKING_STATUS_REQUEST';
 	}
 
 	static function getRequestType() {
