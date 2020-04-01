@@ -15,7 +15,7 @@ use GoGlobal\Request\HotelSearchGeo;
 
 class Service implements LoggerAwareInterface
 {
-    const URL_SERVICE = "http://xml.qa.goglobal.travel/XMLWebService.asmx";
+    const URL_SERVICE = "https://pontez.xml.goglobal.travel/xmlwebservice.asmx";
 
     private static $_default = null;
     public static function getDefault() {
