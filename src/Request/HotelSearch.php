@@ -33,8 +33,18 @@ class HotelSearch extends RequestAbstract implements RequestInterface
 	protected $_categories = [];
 	protected $_rooms = [];
 	protected $_apartments = 'false';
+    protected $_nationality = 'HU';
 
+    public function setNationality($nationality)
+    {
+        $this->_nationality = $nationality;
+        return $this;
+    }
 
+    public function getNationality()
+    {
+        return $this->_nationality;
+    }
 
 	public function setSort($sort) {
 		$this->_sort = $sort;
@@ -184,6 +194,7 @@ class HotelSearch extends RequestAbstract implements RequestInterface
 		$xml = "";
 		$xml.= Helper::wrapTag("MaximumWaitTime",$this->getService()->getTimeout());
 		$xml.= Helper::wrapTag("MaxResponses",$this->getService()->getMaxResult());
+        $xml.= Helper::wrapTag("Nationality",$this->getNationality());
 	    if($this->getCity()>0) $xml.= Helper::wrapTag("CityCode",$this->getCity());
 		if(!empty($this->_hotelCode)) {
             $hotelcodes = '';
@@ -200,7 +211,7 @@ class HotelSearch extends RequestAbstract implements RequestInterface
 		foreach($this->getRooms() as $r) {
 			$children = '';
 			for($c=0; $c<$r['children']; $c++) $children.= Helper::wrapTag('ChildAge', Room::CHILD_AGE);
-			$rooms.= Helper::wrapTag('Room',$children,['RoomCount'=>1,'Adults'=>$r['adults'],'CotCount'=>$r['infant']]);
+			$rooms.= Helper::wrapTag('Room',$children,['RoomCount'=>1,'Adults'=>$r['adults'],'ChildCount'=>$r['children']]);
 		}
 		$xml.= Helper::wrapTag('Rooms', $rooms);
 		return $xml;
