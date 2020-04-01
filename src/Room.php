@@ -180,7 +180,7 @@ class Room {
 		$pid = $personStartId;
 		$xml = '<RoomType Adults="'.$this->countAdults().'"';
 		if($this->getInfant()>0) {
-			$xml.= ' CotCount="'.$this->getInfant().'"';
+			$xml.= ' ChildCount="'.$this->getInfant().'"';
 		}
 		$xml.= '>';
 		$xml.= '<Room RoomID="'.$roomId.'">';
